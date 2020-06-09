@@ -10,7 +10,9 @@ import {
 
 import Swiper from 'react-native-swiper';
 import LinearGradient from 'react-native-linear-gradient';
-import {LinearTextGradient} from 'react-native-text-gradient';
+import GradientText from './src/components/GradientText';
+import {BlurView} from '@react-native-community/blur';
+import DateHeader from './src/components/DateHeader';
 
 const App: () => React$Node = () => {
   return (
@@ -20,20 +22,18 @@ const App: () => React$Node = () => {
         colors={['#19332E', '#000C08']}
         style={styles.linearGradient}>
         <View style={styles.background}>
-          <LinearTextGradient
-            style={styles.backgroundText}
-            locations={[0, 1]}
-            colors={['#21BBC5', '#005484']}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 1}}>
-            <Text numberOfLines={1}>2020</Text>
-          </LinearTextGradient>
+          <GradientText style={styles.backgroundText}>
+            <Text style={styles.text}>2020</Text>
+          </GradientText>
+          <BlurView style={styles.blurBg} blurType="extraDark" blurAmount={5} />
         </View>
         <Swiper loop={false}>
-          <SafeAreaView>
+          <SafeAreaView style={{flex: 1}}>
+            <DateHeader />
             <ScrollView
               contentInsetAdjustmentBehavior="automatic"
               style={styles.scrollView}>
+              <Text>Hello</Text>
               <Text>Hello</Text>
             </ScrollView>
           </SafeAreaView>
@@ -59,14 +59,26 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
+  blurBg: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
   backgroundText: {
-    fontSize: 300,
-    fontFamily: 'Rubik-Bold',
     position: 'relative',
     transform: [{rotate: '-51deg'}],
     textShadowColor: '#00878B',
     textShadowOffset: {width: 4, height: 4},
-    textShadowRadius: 90,
+    textShadowRadius: 80,
+    width: 1500,
+    marginBottom: 500,
+    marginLeft: 400,
+  },
+  text: {
+    fontSize: 310,
+    fontFamily: 'Rubik-Bold',
   },
   linearGradient: {
     flex: 1,
