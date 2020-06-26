@@ -6,6 +6,7 @@ import {
   View,
   Text,
   StatusBar,
+  Image,
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
@@ -13,6 +14,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import GradientText from './src/components/GradientText';
 import {BlurView} from '@react-native-community/blur';
 import DateHeader from './src/components/DateHeader';
+import GoalToolbar from './src/components/GoalToolbar';
 
 const App: () => React$Node = () => {
   return (
@@ -25,19 +27,43 @@ const App: () => React$Node = () => {
           <GradientText style={styles.backgroundText}>
             <Text style={styles.text}>2020</Text>
           </GradientText>
-          <BlurView style={styles.blurBg} blurType="extraDark" blurAmount={5} />
         </View>
         <Swiper loop={false}>
+          {/* First Screen */}
           <SafeAreaView style={{flex: 1}}>
             <DateHeader />
+            <GoalToolbar />
             <ScrollView
               contentInsetAdjustmentBehavior="automatic"
               style={styles.scrollView}>
-              <Text>Hello</Text>
-              <Text>Hello</Text>
+              <View style={styles.container}>
+                <BlurView
+                  style={styles.absolute}
+                  blurType="dark"
+                  blurAmount={10}
+                  reducedTransparencyFallbackColor="white"
+                />
+                <Text>
+                  I'm the non blurred text because I got rendered on top of the
+                  BlurView
+                </Text>
+              </View>
+              <View style={styles.container}>
+                <BlurView
+                  style={styles.absolute}
+                  blurType="dark"
+                  blurAmount={10}
+                  reducedTransparencyFallbackColor="black"
+                />
+                <Text>Medium</Text>
+                <Text>Score a 175 on the LSAT</Text>
+                <Text>
+                  Getting into law school of my dreams, graduating with honours.
+                </Text>
+              </View>
             </ScrollView>
           </SafeAreaView>
-
+          {/* Secondary Screen */}
           <SafeAreaView>
             <Text>Beautiful</Text>
           </SafeAreaView>
@@ -48,6 +74,22 @@ const App: () => React$Node = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+    marginLeft: 12,
+    marginRight: 12,
+  },
+  absolute: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    borderRadius: 10,
+    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+  },
   background: {
     flex: 1,
     flexDirection: 'column',
